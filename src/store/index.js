@@ -18,7 +18,7 @@ export default createStore({
     }
   },
   actions: {
-    //*
+
     async login ({ commit }, details) {
       const {email, password} = details;
       try {
@@ -41,6 +41,7 @@ export default createStore({
       router.push( '/' );
 
     },
+
     async register ({ commit }, details) {
       const {email, password} = details;
       try {
@@ -68,6 +69,7 @@ export default createStore({
       commit( 'SET_USER', auth.currentUser );
       router.push( '/' );
     },
+
     async logout ({ commit }) {
       await signOut( auth );
 
@@ -75,6 +77,7 @@ export default createStore({
 
       router.push( '/login' );
     },
+
     fetchUser({ commit }) {
       auth.onAuthStateChanged( async user => {
         if ( user === null ) {
@@ -82,7 +85,7 @@ export default createStore({
         } else {
           commit( 'SET_USER', user );
           if ( router.isReady() && router.currentRoute.value.path === '/login' ) {
-            auth.push( '/' );
+            router.push( '/' );
           }
         }
       })
